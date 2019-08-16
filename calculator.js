@@ -1,19 +1,21 @@
-const newArgument = document.createElement('div');
 const display = document.querySelector('#display');
-const buttons = document.querySelectorAll('button');
+const numbers = document.querySelectorAll('#number');
+const operators = document.querySelectorAll('#operator');
 
-let getExpressions = display.textContent; 
+const clear = document.querySelector('.clear');
+const equal = document.querySelector('.equals');
 
-buttons.forEach(button => button.addEventListener('click', function(e){
-    e = e.target;
-    if(e.classList[0]){
-        display.textContent += ' ' + e.textContent + ' ';
-    } else {    
-    getExpressions = display.textContent += e.textContent;
-    }
+let beforeValue = '';
+
+numbers.forEach(button => button.addEventListener('click', function(e){        
+    display.textContent += e.target.textContent;
+})); 
+
+operators.forEach(button => button.addEventListener('click', function(e){
+    display.textContent += e.target.textContent;
 }));
 
-    
+
 
 
 function add(a, b){
