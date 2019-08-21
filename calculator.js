@@ -1,21 +1,19 @@
 const display = document.querySelector('#display');
-const numbers = document.querySelectorAll('#number');
-const operators = document.querySelectorAll('#operator');
+const buttons = document.querySelectorAll('button');
 
 const clear = document.querySelector('.clear');
 const equal = document.querySelector('.equals');
 
-let beforeValue = '';
+let displayValue = '';
+let firstNumber;
+let secondNumber;
+let operand = '';
 
-numbers.forEach(button => button.addEventListener('click', function(e){        
-    display.textContent += e.target.textContent;
-})); 
+buttons.forEach(button => button.addEventListener('click', getEquation));
 
-operators.forEach(button => button.addEventListener('click', function(e){
-    display.textContent += e.target.textContent;
-}));
-
-
+function runDisplay(){
+    display.textContent = displayValue;
+}
 
 
 function add(a, b){
@@ -51,4 +49,19 @@ function operate(op, x, y){
             break;        
     }
     return result;
+} 
+
+function getEquation(e){
+    const userInput = e.target.textContent;
+    if(userInput === '+' || userInput === '-' || userInput === '/' || userInput === '*'){
+        if(firstNumber){
+            operand = userInput;
+        }    
+    }else if(firstNumber && operand){
+        secondNumber += userInput;
+    }else {
+        firstNumber += userInput;
+    }
+    displayValue += userInput;
+    runDisplay();
 }
