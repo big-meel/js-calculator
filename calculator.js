@@ -7,14 +7,13 @@ const equal = document.querySelector('.equals');
 const equation = [];
 
 let displayValue = '';
-let firstNumber;
-let secondNumber;
+let heldNumber = '';
 let operand = '';
 
 buttons.forEach(button => button.addEventListener('click', getEquation));
 
-function runDisplay(){
-    display.textContent = displayValue;
+function runDisplay(char){
+    display.textContent += char;
 }
 
 
@@ -49,28 +48,37 @@ function operate(op, x, y){
 
 function getEquation(e){
     const userInput = e.target.textContent;
-    if(userInput === '+' || userInput === '-' || userInput === '/' || userInput === '*'){
-        if(firstNumber && !(checkIfOperator(displayValue[displayValue.length-1]))){
-            operand = userInput;
-        }else getEquation(e);   //cancels entry if user enters multiple operators 
-    }else if(firstNumber && operand){
-        secondNumber += userInput;
-    }else {
-        firstNumber += userInput;
+    if(!(checkIfOperator(userInput))){
+        runDisplay(userInput);
+        heldNumber += userInput;
+    }else if(checkIfOperator(userInput)){
+        runDisplay(userInput);
+        equation.push(heldNumber);
+        equation.push(userInput);
+        heldNumber = '';
     }
-    displayValue += userInput;
-    runDisplay();
-    if (e.target.textContent === "C"){
-        clearScreen();
-    }
+    
 }
+
 
 function checkIfOperator(op){
     return op === '+' ? true : op === '-' ? true : op === '/' ? true : op === '*' ? 
-    true : false
+    true : op === '=' ? true : false;
 }
 
 function clearScreen() {
-    displayValue = '';
     display.textContent = '';
+}
+
+function equalsTo(arr){
+    //Determines the operator with the highest presedence
+    const presedence = (op) => { return (op === '*' || op === '/') ? 2 : op === '-' || 
+        op === '+' ? 1 : 0; }
+    /*for (i = 0; i < arr.length; i++){
+        if(checkIfOperator(arr[i])){
+            if(presedence(arr[i]) === 2){
+
+            }
+        }
+    } */  
 }
