@@ -4,6 +4,8 @@ const buttons = document.querySelectorAll('button');
 const clear = document.querySelector('.clear');
 const equal = document.querySelector('.equals');
 
+const equation = [];
+
 let displayValue = '';
 let firstNumber;
 let secondNumber;
@@ -33,30 +35,24 @@ function divide(x, y){
 }
 
 function operate(op, x, y){
-    let result;
     switch(op){
         case '+':
-            result = add(x, y);
-            break;
+            return add(x, y);
         case '-':
-            result = subtract(x, y);
-            break;
+            return subtract(x, y);
         case '*':
-            result = multiply(x, y);
-            break;
+            return multiply(x, y);
         case '/':
-            result = divide(x, y);
-            break;        
+            return divide(x, y);       
     }
-    return result;
 } 
 
 function getEquation(e){
     const userInput = e.target.textContent;
     if(userInput === '+' || userInput === '-' || userInput === '/' || userInput === '*'){
-        if(firstNumber){
+        if(firstNumber && !(checkIfOperator(displayValue[displayValue.length-1]))){
             operand = userInput;
-        }    
+        }else getEquation(e);   //cancels entry if user enters multiple operators 
     }else if(firstNumber && operand){
         secondNumber += userInput;
     }else {
@@ -64,4 +60,17 @@ function getEquation(e){
     }
     displayValue += userInput;
     runDisplay();
+    if (e.target.textContent === "C"){
+        clearScreen();
+    }
+}
+
+function checkIfOperator(op){
+    return op === '+' ? true : op === '-' ? true : op === '/' ? true : op === '*' ? 
+    true : false
+}
+
+function clearScreen() {
+    displayValue = '';
+    display.textContent = '';
 }
