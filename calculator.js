@@ -71,14 +71,69 @@ function clearScreen() {
 }
 
 function equalsTo(arr){
-    //Determines the operator with the highest presedence
-    const presedence = (op) => { return (op === '*' || op === '/') ? 2 : op === '-' || 
-        op === '+' ? 1 : 0; }
-    /*for (i = 0; i < arr.length; i++){
-        if(checkIfOperator(arr[i])){
-            if(presedence(arr[i]) === 2){
+    
+    const multiplication = (op) => {
+        for (i = 0; i < op.length; i++){
+            currentItem = arr[i];
+            if (currentItem === '*'){
+                leftVal = parseFloat(arr[i-1]);
+                rightVal = parseFloat(arr[i+1]);
+                result = operate(currentItem, leftVal, rightVal);
+
+                arr[i-1] = result;
+                arr.splice(i, 2);
+            }
+        }
+    }
+
+    const division = (op) => {
+        for (i = 0; i < op.length; i++){
+            currentItem = arr[i];
+            if (currentItem === '/'){
+                leftVal = parseFloat(arr[i-1]);
+                rightVal = parseFloat(arr[i+1]);
+                result = operate(currentItem, leftVal, rightVal);
+
+                arr[i-1] = result;
+                arr.splice(i, 2);
+            }
+        }
+    }
+
+    const addition = (op) => {
+        for (i = 0; i < op.length; i++){
+            currentItem = arr[i];
+            if (currentItem === '+'){
+                leftVal = parseFloat(arr[i-1]);
+                rightVal = parseFloat(arr[i+1]);
+                result = operate(currentItem, leftVal, rightVal);
+
+                arr[i-1] = result;
+                arr.splice(i, 2);
 
             }
         }
-    } */  
+    }
+
+    const subtraction = (op) => {
+        for (i = 0; i < op.length; i++){
+            currentItem = arr[i];
+            if (currentItem === '-'){
+                leftVal = parseFloat(arr[i-1]);
+                rightVal = parseFloat(arr[i+1]);
+                result = operate(currentItem, leftVal, rightVal);
+
+                arr[i-1] = result;
+                arr.splice(i, 2);
+
+            }
+        }
+    }
+
+    multiplication(arr);
+    division(arr);
+    addition(arr);
+    subtraction(arr);
+    
+    return arr[0];
 }
