@@ -8,7 +8,8 @@ const equation = [];
 
 let displayValue = '';
 let heldNumber = '';
-let operand = '';
+let operand;
+let newResult;
 
 buttons.forEach(button => button.addEventListener('click', getEquation));
 
@@ -50,13 +51,28 @@ function getEquation(e){
     const userInput = e.target.textContent;
     if(!(checkIfOperator(userInput))){
         runDisplay(userInput);
+
+        operand = undefined;
         heldNumber += userInput;
-    }else if(checkIfOperator(userInput)){
-        runDisplay(userInput);
+    }else if(userInput === '='){
         equation.push(heldNumber);
-        equation.push(userInput);
-        heldNumber = '';
-    }
+        equalsTo(equation);
+
+        display.textContent = '';
+
+        runDisplay(equation[0]);
+
+    }else if(checkIfOperator(userInput)){
+        if(!(operand)){
+            operand = userInput;
+            equation.push(heldNumber);
+            equation.push(userInput);
+
+            runDisplay(userInput);
+
+            heldNumber = '';
+        }else  getEquation(e);
+    }    
     
 }
 
