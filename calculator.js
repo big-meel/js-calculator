@@ -49,31 +49,36 @@ function operate(op, x, y){
 
 function getEquation(e){
     const userInput = e.target.textContent;
+    //Conditional holds current number
     if(!(checkIfOperator(userInput))){
         runDisplay(userInput);
 
         operand = undefined;
         heldNumber += userInput;
-    }else if(userInput === '='){
+    }else if(userInput === '='){  //Evaluates equation if user selects '='
+       
         equation.push(heldNumber);
         equalsTo(equation);
+
 
         display.textContent = '';
 
         runDisplay(equation[0]);
-
-    }else if(checkIfOperator(userInput)){
-        if(!(operand)){
+        
+        heldNumber = '';
+    }else if(checkIfOperator(userInput)){ //If user enters operator 
+        if(!(operand)){                   //current number is added to array  
             operand = userInput;
-            equation.push(heldNumber);
+            if(heldNumber !== ''){
+                equation.push(heldNumber);
+            }
             equation.push(userInput);
 
             runDisplay(userInput);
 
             heldNumber = '';
-        }else  getEquation(e);
+        }else  getEquation(e);   
     }    
-    
 }
 
 
@@ -88,10 +93,10 @@ function clearScreen() {
 
 function equalsTo(arr){
     
-    const multiplication = (op) => {
-        for (i = 0; i < op.length; i++){
+    const evaluate = (op, eq) => {
+        for (i = 0; i < eq.length; i++){
             currentItem = arr[i];
-            if (currentItem === '*'){
+            if (currentItem === op){
                 leftVal = parseFloat(arr[i-1]);
                 rightVal = parseFloat(arr[i+1]);
                 result = operate(currentItem, leftVal, rightVal);
@@ -102,54 +107,10 @@ function equalsTo(arr){
         }
     }
 
-    const division = (op) => {
-        for (i = 0; i < op.length; i++){
-            currentItem = arr[i];
-            if (currentItem === '/'){
-                leftVal = parseFloat(arr[i-1]);
-                rightVal = parseFloat(arr[i+1]);
-                result = operate(currentItem, leftVal, rightVal);
-
-                arr[i-1] = result;
-                arr.splice(i, 2);
-            }
-        }
-    }
-
-    const addition = (op) => {
-        for (i = 0; i < op.length; i++){
-            currentItem = arr[i];
-            if (currentItem === '+'){
-                leftVal = parseFloat(arr[i-1]);
-                rightVal = parseFloat(arr[i+1]);
-                result = operate(currentItem, leftVal, rightVal);
-
-                arr[i-1] = result;
-                arr.splice(i, 2);
-
-            }
-        }
-    }
-
-    const subtraction = (op) => {
-        for (i = 0; i < op.length; i++){
-            currentItem = arr[i];
-            if (currentItem === '-'){
-                leftVal = parseFloat(arr[i-1]);
-                rightVal = parseFloat(arr[i+1]);
-                result = operate(currentItem, leftVal, rightVal);
-
-                arr[i-1] = result;
-                arr.splice(i, 2);
-
-            }
-        }
-    }
-
-    multiplication(arr);
-    division(arr);
-    addition(arr);
-    subtraction(arr);
+    evaluate('*', arr);
+    evaluate('/', arr);
+    evaluate('+', arr);
+    evaluate('-', arr);
     
     return arr[0];
 }
