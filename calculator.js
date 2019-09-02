@@ -4,19 +4,16 @@ const buttons = document.querySelectorAll('button');
 const clear = document.querySelector('.clear');
 const equal = document.querySelector('.equals');
 
-const equation = [];
+let equation = [];
 
-let displayValue = '';
 let heldNumber = '';
 let operand;
-let newResult;
 
 buttons.forEach(button => button.addEventListener('click', getEquation));
 
 function runDisplay(char){
     display.textContent += char;
 }
-
 
 function add(a, b){
      return a + b;
@@ -55,11 +52,10 @@ function getEquation(e){
 
         operand = undefined;
         heldNumber += userInput;
-    }else if(userInput === '='){  //Evaluates equation if user selects '='
+    }else if(userInput === '=' && !(operand)){  //Evaluates equation if user selects '='
        
         equation.push(heldNumber);
         equalsTo(equation);
-
 
         display.textContent = '';
 
@@ -79,8 +75,10 @@ function getEquation(e){
             heldNumber = '';
         }else  getEquation(e);   
     }    
+    if(userInput === 'C'){
+        clearScreen();
+    }
 }
-
 
 function checkIfOperator(op){
     return op === '+' ? true : op === '-' ? true : op === '/' ? true : op === '*' ? 
@@ -89,6 +87,8 @@ function checkIfOperator(op){
 
 function clearScreen() {
     display.textContent = '';
+    equation = [];
+    heldNumber = '';
 }
 
 function equalsTo(arr){
