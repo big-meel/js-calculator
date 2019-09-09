@@ -8,6 +8,7 @@ let equation = [];
 
 let heldNumber = '';
 let operand;
+let result;
 
 buttons.forEach(button => button.addEventListener('click', getEquation));
 
@@ -45,25 +46,38 @@ function operate(op, x, y){
 } 
 
 function getEquation(e){
-    const userInput = e.target.textContent;
-    //Conditional holds current number
+    let userInput = e.target.textContent;
+
     if(!(checkIfOperator(userInput))){
+        if(userInput ==="." && heldNumber.includes(".")){
+                userInput = '';
+        }
+        if(result && !(operand)){
+            display.textContent = '';
+            equation = [];
+            result = undefined;
+        }
+
         runDisplay(userInput);
 
         operand = undefined;
         heldNumber += userInput;
-    }else if(userInput === '=' && !(operand)){  //Evaluates equation if user selects '='
-       
+    }else if(userInput === '=' && !(operand) && heldNumber){  //Evaluates equation if user selects '='
+
         equation.push(heldNumber);
         equalsTo(equation);
 
         display.textContent = '';
 
-        runDisplay(equation[0]);
+        if(equation[0] === Infinity || equation[0] === -Infinity){
+            alert("WARNING!!! You are playing with forces beyond your control! (Division by zero)");
+            clearScreen();
+        }else runDisplay(equation[0]);
         
-        heldNumber = '';
+        result = equation[0];
+        heldNumber = '';     
     }else if(checkIfOperator(userInput)){ //If user enters operator 
-        if(!(operand)){                   //current number is added to array  
+        if(!(operand) && userInput !== "="){                   //current number is added to array  
             operand = userInput;
             if(heldNumber !== ''){
                 equation.push(heldNumber);
@@ -72,12 +86,13 @@ function getEquation(e){
 
             runDisplay(userInput);
 
-            heldNumber = '';
-        }else  getEquation(e);   
+            heldNumber = '';    
+        }else  heldNumber += '';   
     }    
     if(userInput === 'C'){
         clearScreen();
     }
+    
 }
 
 function checkIfOperator(op){
@@ -106,11 +121,11 @@ function equalsTo(arr){
             }
         }
     }
-
+    
     evaluate('*', arr);
     evaluate('/', arr);
     evaluate('+', arr);
     evaluate('-', arr);
-    
+
     return arr[0];
 }
