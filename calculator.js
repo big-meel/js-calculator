@@ -92,12 +92,36 @@ function getEquation(e){
     if(userInput === 'C'){
         clearScreen();
     }
+    if(userInput === 'Backspace'){
+        backspace();
+    }
     
 }
 
 function checkIfOperator(op){
     return op === '+' ? true : op === '-' ? true : op === '/' ? true : op === '*' ? 
     true : op === '=' ? true : false;
+}
+
+function backspace(){
+    let current = display.textContent;
+    let newDisplay = current.slice(0, (current.indexOf('B')) );
+    newDisplay = newDisplay.slice(0, -1); 
+    
+    display.textContent = '';
+
+    runDisplay(newDisplay);
+    
+    
+
+    if(heldNumber){
+        heldNumber = heldNumber.slice(0, heldNumber.indexOf('B'));
+        heldNumber = heldNumber.slice(0, -1);
+    }else{
+         if(equation[equation.length-1]){
+            equation[(equation.length)-1].slice(0, -1);
+        }
+    }
 }
 
 function clearScreen() {
