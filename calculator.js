@@ -114,13 +114,19 @@ function backspace(){
     
     
 
-    if(heldNumber){
-        heldNumber = heldNumber.slice(0, heldNumber.indexOf('B'));
+    let endNumber = equation[equation.length - 1] 
+
+    if (heldNumber === 'Backspace'){
+		heldNumber = ""
+		if (endNumber){
+			equation[equation.length - 1] = endNumber.slice(0, -1)
+            if( !( equation[equation.length - 1] ) ){
+                equation.pop();
+            }
+		}
+    } else if(heldNumber){
+		heldNumber = heldNumber.slice(0, (heldNumber.indexOf('B')));
         heldNumber = heldNumber.slice(0, -1);
-    }else{
-         if(equation[equation.length-1]){
-            equation[(equation.length)-1].slice(0, -1);
-        }
     }
 }
 
