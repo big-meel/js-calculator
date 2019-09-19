@@ -1,0 +1,27 @@
+html {
+    background-color: rgb(1, 1, 51);
+}
+
+h4 {
+    color: white;
+    text-align: center;
+    text-shadow: 1px 1px powderblue;
+}
+
+#display {
+    background-color: white;
+    text-align: right;
+    max-width: 500px;
+    height: 30px;
+    border-radius: 12px;
+    padding: 10px 12.5px 0px;
+    margin: 50px auto 50px;
+}
+
+#container {
+    justify-content: center;
+}
+
+#backspace {
+    padding: 0px 10px 0px 0px;
+}
