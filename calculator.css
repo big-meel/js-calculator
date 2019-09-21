@@ -8,20 +8,44 @@ h4 {
     text-shadow: 1px 1px powderblue;
 }
 
+.clear {
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
+
 #display {
-    background-color: white;
+    color: gold;
+    background-color: rgb(1, 1, 51);
     text-align: right;
+    font: 25px bold;
     max-width: 500px;
     height: 30px;
-    border-radius: 12px;
+    border-radius: 30px;
+    border-width: 1px;
+    border-color: powderblue;
+    border-style: solid;
     padding: 10px 12.5px 0px;
     margin: 50px auto 50px;
 }
 
 #container {
     justify-content: center;
+    grid-gap: 10px;
+}
+
+button {
+    background-color: rgb(1, 1, 51);
+    font: 26px bold;
+    color: powderblue;
+    text-align: center;
+    border-color: crimson;
+    border-radius: 38px 38px;
+    border-style: none solid none solid;
+    border-width: 5px;
 }
 
 #backspace {
+    grid-column-start: 1;
+    grid-column-end: 3;
     padding: 0px 10px 0px 0px;
 }
