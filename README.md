@@ -13,4 +13,4 @@ Js-Calculator
 
  Enjoy!
 
- ~Special Thanks to The Odin Project~ 
+ *Special Thanks to The Odin Project* 
