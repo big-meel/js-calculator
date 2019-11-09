@@ -53,8 +53,8 @@ function getEquation(e){
                 userInput = '';
         }
         if(result && !(operand)){
-            display.textContent = '';
-            equation = [];
+            //display.textContent = '';
+            //equation = [];
             result = undefined;
         }
 
@@ -62,21 +62,6 @@ function getEquation(e){
 
         operand = undefined;
         heldNumber += userInput;
-    }else if(userInput === '=' && !(operand) && heldNumber){  //Evaluates equation if user selects '='
-
-        equation.push(heldNumber);
-        equalsTo(equation);
-
-        display.textContent = '';
-
-        if(equation[0] === Infinity || equation[0] === -Infinity){
-            alert("WARNING!!! You are playing with forces beyond your control! (Division by zero)");
-            clearScreen();
-        }else 
-        runDisplay(equation[0]);
-        
-        result = equation[0];
-        heldNumber = '';     
     }else if(checkIfOperator(userInput)){ //If user enters operator 
         if(!(operand) && userInput !== "="){                   //current number is added to array  
             operand = userInput;
@@ -90,6 +75,24 @@ function getEquation(e){
             heldNumber = '';    
         }else  heldNumber += '';   
     }    
+
+    if(userInput === '=' && !(operand) && heldNumber){  //Evaluates equation if user selects '='
+
+    equation.push(heldNumber);
+    equalsTo(equation);
+
+    display.textContent = '';
+
+    if(equation[0] === Infinity || equation[0] === -Infinity){
+        alert("WARNING!!! You are playing with forces beyond your control! (Division by zero)");
+        clearScreen();
+    }else 
+    runDisplay(equation[0]);
+    
+    result = equation[0];
+    heldNumber = '';   
+    }  
+
     if(userInput === 'C'){
         clearScreen();
     }
