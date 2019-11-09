@@ -72,7 +72,8 @@ function getEquation(e){
         if(equation[0] === Infinity || equation[0] === -Infinity){
             alert("WARNING!!! You are playing with forces beyond your control! (Division by zero)");
             clearScreen();
-        }else runDisplay(equation[0]);
+        }else 
+        runDisplay(equation[0]);
         
         result = equation[0];
         heldNumber = '';     
@@ -152,10 +153,8 @@ function equalsTo(arr){
         }
     }
     
-    evaluate('*', arr);
-    evaluate('/', arr);
-    evaluate('+', arr);
-    evaluate('-', arr);
+    evaluate('*', arr) || evaluate('/', arr);
+    evaluate('+', arr) || evaluate('-', arr);
 
     return arr[0];
 }
