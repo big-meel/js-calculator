@@ -10,7 +10,7 @@ Js-Calculator
  Punch in your equations and press the "Equal" button display the results.
 
  If you make a mistake then use the "Backspace" to erase the mistake or start over by pressing "C".
-
- Enjoy!
+ 
+ Access here -->  https://big-meel.github.io/js-calculator/
 
  *Special Thanks to The Odin Project* 
